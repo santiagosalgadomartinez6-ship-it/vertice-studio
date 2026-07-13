@@ -1,0 +1,546 @@
+:root {
+  --bg: #f5f5f0;
+  --surface: #ffffff;
+  --ink: #14141a;
+  --muted: #6b6b70;
+  --lime: #c6ff3d;
+  --coral: #ff5a3d;
+  --border: #e5e5df;
+  --radius: 14px;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: "Inter", system-ui, sans-serif;
+  line-height: 1.5;
+}
+
+h1, h2, h3, h4 {
+  font-family: "Space Grotesk", "Inter", sans-serif;
+  margin: 0;
+}
+
+a {
+  color: inherit;
+}
+
+img {
+  max-width: 100%;
+}
+
+/* Nav */
+.nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1.25rem 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.nav__brand {
+  font-family: "Space Grotesk", sans-serif;
+  font-weight: 700;
+  font-size: 1.25rem;
+  letter-spacing: 0.05em;
+  text-decoration: none;
+}
+
+.nav__links {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.nav__links a {
+  text-decoration: none;
+  font-weight: 500;
+  font-size: 0.95rem;
+}
+
+/* Buttons */
+.btn {
+  display: inline-block;
+  padding: 0.75rem 1.5rem;
+  border-radius: 999px;
+  font-weight: 600;
+  text-decoration: none;
+  border: none;
+  cursor: pointer;
+  font-family: inherit;
+  font-size: 0.95rem;
+  transition: transform 0.15s ease;
+}
+
+.btn:hover {
+  transform: translateY(-2px);
+}
+
+.btn--primary {
+  background: var(--ink);
+  color: var(--lime);
+}
+
+.btn--nav {
+  background: var(--ink);
+  color: var(--lime);
+  padding: 0.6rem 1.25rem;
+}
+
+.btn--chico {
+  background: var(--ink);
+  color: var(--bg);
+  padding: 0.5rem 1rem;
+  font-size: 0.85rem;
+}
+
+.btn--peligro {
+  background: var(--coral);
+  color: var(--surface);
+}
+
+/* Flash messages */
+.flash-stack {
+  max-width: 700px;
+  margin: 1rem auto 0;
+  padding: 0 1.5rem;
+  display: grid;
+  gap: 0.5rem;
+}
+
+.flash {
+  padding: 0.85rem 1.1rem;
+  border-radius: 10px;
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+
+.flash--error {
+  background: #ffe3db;
+  color: #9c2f16;
+}
+
+.flash--ok {
+  background: #dcf7c5;
+  color: #365e14;
+}
+
+/* Hero */
+.hero {
+  position: relative;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 4rem 2rem 5rem;
+  overflow: hidden;
+}
+
+.hero__blob {
+  position: absolute;
+  top: -100px;
+  right: -100px;
+  width: 420px;
+  height: 420px;
+  background: radial-gradient(circle at 30% 30%, var(--lime), transparent 70%);
+  opacity: 0.6;
+  border-radius: 50%;
+  z-index: -1;
+}
+
+.hero__eyebrow {
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  font-size: 0.8rem;
+  color: var(--muted);
+  font-weight: 600;
+  margin-bottom: 1rem;
+}
+
+.hero__title {
+  font-size: clamp(2.5rem, 6vw, 4.5rem);
+  line-height: 1.02;
+  font-weight: 700;
+  margin-bottom: 1.25rem;
+}
+
+.hero__subtitle {
+  max-width: 480px;
+  color: var(--muted);
+  font-size: 1.05rem;
+  margin-bottom: 2rem;
+}
+
+/* Stats */
+.stats {
+  display: flex;
+  justify-content: center;
+  gap: clamp(1.5rem, 6vw, 4rem);
+  background: var(--ink);
+  color: var(--bg);
+  padding: 2rem 1.5rem;
+}
+
+.stats--admin {
+  background: var(--surface);
+  color: var(--ink);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  margin-bottom: 1.5rem;
+}
+
+.stats__item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.stats__item strong {
+  font-family: "Space Grotesk", sans-serif;
+  font-size: 2rem;
+  color: var(--lime);
+}
+
+.stats--admin .stats__item strong {
+  color: var(--coral);
+}
+
+.stats__item span {
+  font-size: 0.85rem;
+  color: var(--muted);
+}
+
+.stats--admin .stats__item span {
+  color: var(--muted);
+}
+
+/* Sections */
+section {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 4rem 2rem;
+}
+
+.section__title {
+  font-size: clamp(1.75rem, 4vw, 2.5rem);
+  margin-bottom: 2rem;
+}
+
+.section__subtitle {
+  font-size: 1.25rem;
+  margin: 2.5rem 0 1.25rem;
+}
+
+/* Horario table */
+.tabla-horario {
+  display: grid;
+  gap: 0.75rem;
+}
+
+.fila-horario {
+  display: grid;
+  grid-template-columns: 90px 70px 1.3fr 1fr 100px auto;
+  align-items: center;
+  gap: 1rem;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1rem 1.25rem;
+}
+
+.fila-horario__dia {
+  font-weight: 600;
+}
+
+.fila-horario__hora,
+.fila-horario__cupo {
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+
+.fila-horario__nombre {
+  font-weight: 600;
+}
+
+.fila-horario__instructor {
+  color: var(--muted);
+}
+
+/* Class type cards */
+.grid-clases {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1.25rem;
+}
+
+.tarjeta-clase {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1.5rem;
+}
+
+.tarjeta-clase h4 {
+  margin-bottom: 0.5rem;
+}
+
+.tarjeta-clase p {
+  color: var(--muted);
+  font-size: 0.9rem;
+  margin: 0 0 0.75rem;
+}
+
+.tarjeta-clase__instructor {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--coral);
+}
+
+/* Instructors */
+.grid-instructores {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1.25rem;
+}
+
+.tarjeta-instructor {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1.5rem;
+  text-align: center;
+}
+
+.avatar {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: var(--lime);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: "Space Grotesk", sans-serif;
+  font-weight: 700;
+  margin: 0 auto 0.75rem;
+}
+
+.tarjeta-instructor p {
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+
+/* CTA banner */
+.cta-banner {
+  text-align: center;
+  background: var(--ink);
+  color: var(--bg);
+  border-radius: var(--radius);
+  max-width: 1160px;
+}
+
+.cta-banner p {
+  color: var(--muted);
+  margin: 1rem 0 1.5rem;
+}
+
+/* Forms */
+.form-reserva {
+  display: grid;
+  gap: 0.4rem;
+  max-width: 480px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 2rem;
+}
+
+.form-reserva--angosta {
+  margin: 0 auto;
+}
+
+.form-reserva label {
+  font-size: 0.85rem;
+  font-weight: 600;
+  margin-top: 0.75rem;
+}
+
+.form-reserva select,
+.form-reserva input {
+  padding: 0.75rem;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+  font-family: inherit;
+  font-size: 0.95rem;
+}
+
+.form-reserva select:disabled {
+  color: var(--muted);
+}
+
+.form-reserva button {
+  margin-top: 1.5rem;
+}
+
+.reservar__intro {
+  color: var(--muted);
+  margin-bottom: 2rem;
+}
+
+/* Confirmation */
+.confirmacion {
+  display: flex;
+  justify-content: center;
+}
+
+.tarjeta-confirmacion {
+  max-width: 480px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 2.5rem;
+  text-align: center;
+}
+
+.tarjeta-confirmacion__check {
+  display: inline-flex;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: var(--lime);
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+.detalle-reserva {
+  text-align: left;
+  margin: 1.5rem 0;
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 0.4rem 1rem;
+}
+
+.detalle-reserva dt {
+  color: var(--muted);
+  font-size: 0.85rem;
+}
+
+.detalle-reserva dd {
+  margin: 0;
+  font-weight: 600;
+  text-align: right;
+}
+
+.confirmacion__nota {
+  color: var(--muted);
+  font-size: 0.85rem;
+  margin-bottom: 1.5rem;
+}
+
+/* Admin */
+.admin-dashboard__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1.5rem;
+}
+
+.admin-dashboard__header .section__title {
+  margin-bottom: 0;
+}
+
+.tabla-admin-wrap {
+  overflow-x: auto;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+}
+
+.tabla-admin {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.9rem;
+  white-space: nowrap;
+}
+
+.tabla-admin th,
+.tabla-admin td {
+  padding: 0.85rem 1rem;
+  text-align: left;
+  border-bottom: 1px solid var(--border);
+}
+
+.tabla-admin th {
+  color: var(--muted);
+  font-weight: 600;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
+
+.fila--cancelada {
+  opacity: 0.5;
+}
+
+/* Footer */
+.footer {
+  text-align: center;
+  padding: 3rem 2rem 2rem;
+  color: var(--muted);
+  font-size: 0.85rem;
+}
+
+.footer__brand {
+  font-family: "Space Grotesk", sans-serif;
+  font-weight: 700;
+  color: var(--ink);
+  letter-spacing: 0.05em;
+  margin-bottom: 0.5rem;
+}
+
+.footer__info {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.footer__nota {
+  font-size: 0.75rem;
+  opacity: 0.8;
+}
+
+/* Responsive */
+@media (max-width: 720px) {
+  .nav {
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .fila-horario {
+    grid-template-columns: 1fr 1fr;
+    grid-template-areas:
+      "dia hora"
+      "nombre nombre"
+      "instructor cupo"
+      "boton boton";
+  }
+
+  .fila-horario__dia { grid-area: dia; }
+  .fila-horario__hora { grid-area: hora; }
+  .fila-horario__nombre { grid-area: nombre; }
+  .fila-horario__instructor { grid-area: instructor; }
+  .fila-horario__cupo { grid-area: cupo; }
+  .fila-horario .btn { grid-area: boton; text-align: center; }
+}

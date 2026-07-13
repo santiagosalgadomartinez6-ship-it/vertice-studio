@@ -1,0 +1,72 @@
+{% extends "base.html" %}
+{% block title %}Vértice Studio — Entrena con propósito{% endblock %}
+
+{% block content %}
+<section class="hero">
+  <div class="hero__blob" aria-hidden="true"></div>
+  <p class="hero__eyebrow">Estudio boutique de entrenamiento</p>
+  <h1 class="hero__title">ENTRENA CON<br>PROPÓSITO</h1>
+  <p class="hero__subtitle">Funcional, yoga, spinning, box y pilates reformer en clases pequeñas con cupo limitado.</p>
+  <a href="#clases" class="btn btn--primary">Ver horarios</a>
+</section>
+
+<section class="stats">
+  <div class="stats__item"><strong>5</strong><span>disciplinas</span></div>
+  <div class="stats__item"><strong>3</strong><span>instructores</span></div>
+  <div class="stats__item"><strong>+200</strong><span>alumnos activos</span></div>
+</section>
+
+<section class="clases" id="clases">
+  <h2 class="section__title">Horario semanal</h2>
+  <div class="tabla-horario">
+    {% for c in clases %}
+    <div class="fila-horario">
+      <span class="fila-horario__dia">{{ c.dia }}</span>
+      <span class="fila-horario__hora">{{ c.hora }}</span>
+      <span class="fila-horario__nombre">{{ c.nombre }}</span>
+      <span class="fila-horario__instructor">{{ c.instructor }}</span>
+      <span class="fila-horario__cupo">{{ c.capacidad }} lugares</span>
+      <a href="{{ url_for('reservar', clase_id=c.id) }}" class="btn btn--chico">Reservar</a>
+    </div>
+    {% endfor %}
+  </div>
+
+  <h3 class="section__subtitle">Nuestras disciplinas</h3>
+  <div class="grid-clases">
+    {% for t in tipos_clase %}
+    <div class="tarjeta-clase">
+      <h4>{{ t.nombre }}</h4>
+      <p>{{ t.descripcion }}</p>
+      <span class="tarjeta-clase__instructor">Con {{ t.instructor }}</span>
+    </div>
+    {% endfor %}
+  </div>
+</section>
+
+<section class="instructores" id="instructores">
+  <h2 class="section__title">Instructores</h2>
+  <div class="grid-instructores">
+    <div class="tarjeta-instructor">
+      <div class="avatar">CI</div>
+      <h4>Coach Iván</h4>
+      <p>Especialista en fuerza funcional y acondicionamiento en bici.</p>
+    </div>
+    <div class="tarjeta-instructor">
+      <div class="avatar">R</div>
+      <h4>Renata</h4>
+      <p>Instructora certificada en yoga y pilates reformer.</p>
+    </div>
+    <div class="tarjeta-instructor">
+      <div class="avatar">CD</div>
+      <h4>Coach Dana</h4>
+      <p>Ex-boxeadora amateur, especialista en box fit y cardio.</p>
+    </div>
+  </div>
+</section>
+
+<section class="cta-banner">
+  <h2>¿Primera vez en Vértice?</h2>
+  <p>Tu primera clase va por nosotros. Reserva tu lugar y compruébalo.</p>
+  <a href="{{ url_for('reservar') }}" class="btn btn--primary">Reservar mi clase</a>
+</section>
+{% endblock %}

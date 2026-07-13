@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>{% block title %}Vértice Studio{% endblock %}</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+<header class="nav">
+  <a href="{{ url_for('inicio') }}" class="nav__brand">VÉRTICE</a>
+  <nav class="nav__links">
+    <a href="{{ url_for('inicio') }}#clases">Clases</a>
+    <a href="{{ url_for('inicio') }}#instructores">Instructores</a>
+    <a href="{{ url_for('reservar') }}" class="btn btn--nav">Reservar clase</a>
+  </nav>
+</header>
+
+{% with mensajes = get_flashed_messages(with_categories=true) %}
+  {% if mensajes %}
+  <div class="flash-stack">
+    {% for categoria, mensaje in mensajes %}
+    <div class="flash flash--{{ categoria }}">{{ mensaje }}</div>
+    {% endfor %}
+  </div>
+  {% endif %}
+{% endwith %}
+
+<main>
+{% block content %}{% endblock %}
+</main>
+
+<footer class="footer">
+  <div class="footer__brand">VÉRTICE STUDIO</div>
+  <div class="footer__info">
+    <span>Av. Reforma 245, Col. Centro</span>
+    <span>·</span>
+    <span>+52 55 1234 5678</span>
+    <span>·</span>
+    <span>@vertice.studio</span>
+  </div>
+  <p class="footer__nota">Proyecto de portafolio — Vértice es una marca ficticia creada con fines de demostración.</p>
+</footer>
+
+<script src="{{ url_for('static', filename='js/main.js') }}"></script>
+</body>
+</html>

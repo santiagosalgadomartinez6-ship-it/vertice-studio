@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% block title %}Reservación confirmada — Vértice Studio{% endblock %}
+
+{% block content %}
+<section class="confirmacion">
+  <div class="tarjeta-confirmacion">
+    <span class="tarjeta-confirmacion__check">✓</span>
+    <h1>¡Reservación confirmada!</h1>
+    <dl class="detalle-reserva">
+      <dt>Clase</dt><dd>{{ reservacion.clase_nombre }}</dd>
+      <dt>Instructor</dt><dd>{{ reservacion.instructor }}</dd>
+      <dt>Día</dt><dd>{{ dia }} {{ reservacion.hora }}</dd>
+      <dt>Fecha reservada</dt><dd>{{ reservacion.fecha }}</dd>
+      <dt>Nombre</dt><dd>{{ reservacion.nombre_cliente }}</dd>
+      <dt>Folio</dt><dd>#{{ reservacion.id }}</dd>
+    </dl>
+    <p class="confirmacion__nota">Guarda tu folio de reservación. Te esperamos 10 minutos antes de tu clase.</p>
+    <a href="{{ url_for('inicio') }}" class="btn btn--primary">Volver al inicio</a>
+  </div>
+</section>
+{% endblock %}

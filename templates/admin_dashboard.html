@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+{% block title %}Panel admin — Vértice Studio{% endblock %}
+
+{% block content %}
+<section class="admin-dashboard">
+  <div class="admin-dashboard__header">
+    <h1 class="section__title">Reservaciones</h1>
+    <a href="{{ url_for('admin_logout') }}" class="btn btn--chico">Cerrar sesión</a>
+  </div>
+
+  <div class="stats stats--admin">
+    <div class="stats__item"><strong>{{ total }}</strong><span>reservaciones totales</span></div>
+    <div class="stats__item"><strong>{{ confirmadas }}</strong><span>confirmadas</span></div>
+  </div>
+
+  <div class="tabla-admin-wrap">
+    <table class="tabla-admin">
+      <thead>
+        <tr>
+          <th>Folio</th>
+          <th>Cliente</th>
+          <th>Teléfono</th>
+          <th>Email</th>
+          <th>Clase</th>
+          <th>Fecha</th>
+          <th>Reservado el</th>
+          <th>Estado</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for r in reservaciones %}
+        <tr class="{% if r.estado == 'cancelada' %}fila--cancelada{% endif %}">
+          <td>#{{ r.id }}</td>
+          <td>{{ r.nombre_cliente }}</td>
+          <td>{{ r.telefono }}</td>
+          <td>{{ r.email }}</td>
+          <td>{{ r.clase_nombre }} — {{ r.hora }}</td>
+          <td>{{ r.fecha }}</td>
+          <td>{{ r.creado_en }}</td>
+          <td>{{ r.estado }}</td>
+          <td>
+            {% if r.estado == 'confirmada' %}
+            <form method="post" action="{{ url_for('admin_cancelar', reservacion_id=r.id) }}">
+              <button type="submit" class="btn btn--chico btn--peligro">Cancelar</button>
+            </form>
+            {% endif %}
+          </td>
+        </tr>
+        {% else %}
+        <tr><td colspan="9">Todavía no hay reservaciones.</td></tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</section>
+{% endblock %}

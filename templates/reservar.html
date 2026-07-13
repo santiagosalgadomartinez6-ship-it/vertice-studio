@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+{% block title %}Reservar clase — Vértice Studio{% endblock %}
+
+{% block content %}
+<section class="reservar">
+  <h1 class="section__title">Reserva tu clase</h1>
+  <p class="reservar__intro">Elige una disciplina, después la fecha disponible, y confirma tus datos.</p>
+
+  <form method="post" action="{{ url_for('crear_reservacion') }}" class="form-reserva" novalidate>
+    <label for="clase_id">Clase</label>
+    <select id="clase_id" name="clase_id" required>
+      <option value="" disabled {% if not clase_preseleccionada %}selected{% endif %}>Selecciona una clase</option>
+      {% for c in clases %}
+      <option value="{{ c.id }}" {% if clase_preseleccionada == c.id %}selected{% endif %}>
+        {{ c.nombre }} — {{ c.dia }} {{ c.hora }} ({{ c.instructor }})
+      </option>
+      {% endfor %}
+    </select>
+
+    <label for="fecha">Fecha disponible</label>
+    <select id="fecha" name="fecha" required disabled>
+      <option value="" selected>Primero elige una clase</option>
+    </select>
+
+    <label for="nombre">Nombre completo</label>
+    <input type="text" id="nombre" name="nombre" required placeholder="Tu nombre">
+
+    <label for="telefono">Teléfono</label>
+    <input type="tel" id="telefono" name="telefono" required placeholder="10 dígitos">
+
+    <label for="email">Correo</label>
+    <input type="email" id="email" name="email" required placeholder="tucorreo@ejemplo.com">
+
+    <button type="submit" class="btn btn--primary">Confirmar reservación</button>
+  </form>
+</section>
+{% endblock %}
