@@ -22,7 +22,7 @@ python app.py
 Abre `http://127.0.0.1:5000/`.
 
 El panel de administración está en `http://127.0.0.1:5000/admin/login`.
-Contraseña de prueba: `vertice2026` (definida en `app.py`, cámbiala con la variable de entorno `VERTICE_ADMIN_PASSWORD` antes de usar esto con un cliente real).
+La contraseña del panel sale de la variable de entorno `VERTICE_PANEL_PASSWORD`; si no existe, el panel no deja entrar. Para probarlo en tu computadora, en PowerShell: `$env:VERTICE_PANEL_PASSWORD = "la-que-quieras"` antes de `python app.py`. En Render la genera el propio Render (ver `render.yaml`) y se consulta en **Environment**. Nunca la escribas en el código: el repositorio es público.
 
 ## Estructura del proyecto
 
@@ -48,4 +48,4 @@ vertice/
 
 - Las clases y horarios semilla están en `database.py`, función `init_db()` — cámbialos por los del negocio real.
 - Los datos de contacto (dirección, teléfono, redes) están hardcodeados en `templates/base.html`.
-- Para producción: mover `VERTICE_SECRET_KEY` y `VERTICE_ADMIN_PASSWORD` a variables de entorno reales y correr con un servidor WSGI (gunicorn/waitress), no con `debug=True`.
+- Para producción: mover `VERTICE_SECRET_KEY` a una variable de entorno real (la contraseña del panel ya está en `VERTICE_PANEL_PASSWORD`) y correr con un servidor WSGI (gunicorn/waitress), no con `debug=True`.

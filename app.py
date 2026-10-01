@@ -1,3 +1,4 @@
+import hmac
 import os
 from flask import Flask, render_template, request, redirect, url_for, flash, session, jsonify
 
@@ -6,7 +7,9 @@ import database as db
 app = Flask(__name__)
 app.secret_key = os.environ.get("VERTICE_SECRET_KEY", "dev-secret-cambiar-en-produccion")
 
-ADMIN_PASSWORD = os.environ.get("VERTICE_ADMIN_PASSWORD", "vertice2026")
+# La contraseña del panel solo viene de una variable de entorno: el repositorio es
+# público, así que nunca va escrita aquí ni en render.yaml. Sin ella el panel no abre.
+ADMIN_PASSWORD = os.environ.get("VERTICE_PANEL_PASSWORD", "")
 
 
 @app.before_request
@@ -103,10 +106,13 @@ def api_fechas_clase(clase_id):
 def admin_login():
     if request.method == "POST":
         password = request.form.get("password", "")
-        if password == ADMIN_PASSWORD:
+        if not ADMIN_PASSWORD:
+            flash("El panel está desactivado: falta configurar su contraseña en el servidor.", "error")
+        elif hmac.compare_digest(password.encode(), ADMIN_PASSWORD.encode()):
             session["admin"] = True
             return redirect(url_for("admin_dashboard"))
-        flash("Contraseña incorrecta.", "error")
+        else:
+            flash("Contraseña incorrecta.", "error")
     return render_template("admin_login.html")
 
 
