@@ -17,15 +17,15 @@
     <table class="tabla-admin">
       <thead>
         <tr>
-          <th>Folio</th>
-          <th>Cliente</th>
-          <th>Teléfono</th>
-          <th>Email</th>
-          <th>Clase</th>
-          <th>Fecha</th>
-          <th>Reservado el</th>
-          <th>Estado</th>
-          <th></th>
+          <th scope="col">Folio</th>
+          <th scope="col">Cliente</th>
+          <th scope="col">Teléfono</th>
+          <th scope="col">Email</th>
+          <th scope="col">Clase</th>
+          <th scope="col">Fecha</th>
+          <th scope="col">Reservado el</th>
+          <th scope="col">Estado</th>
+          <th scope="col"></th>
         </tr>
       </thead>
       <tbody>
@@ -42,6 +42,7 @@
           <td>
             {% if r.estado == 'confirmada' %}
             <form method="post" action="{{ url_for('admin_cancelar', reservacion_id=r.id) }}">
+              <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
               <button type="submit" class="btn btn--chico btn--peligro">Cancelar</button>
             </form>
             {% endif %}
@@ -53,5 +54,23 @@
       </tbody>
     </table>
   </div>
+
+  {% if total_paginas > 1 %}
+  <nav class="paginacion" aria-label="Paginación de reservaciones">
+    {% if pagina > 1 %}
+    <a href="{{ url_for('admin_dashboard', pagina=pagina - 1) }}" class="btn btn--chico">← Anterior</a>
+    {% else %}
+    <span class="btn btn--chico btn--deshabilitado" aria-disabled="true">← Anterior</span>
+    {% endif %}
+
+    <span class="paginacion__estado">Página {{ pagina }} de {{ total_paginas }}</span>
+
+    {% if pagina < total_paginas %}
+    <a href="{{ url_for('admin_dashboard', pagina=pagina + 1) }}" class="btn btn--chico">Siguiente →</a>
+    {% else %}
+    <span class="btn btn--chico btn--deshabilitado" aria-disabled="true">Siguiente →</span>
+    {% endif %}
+  </nav>
+  {% endif %}
 </section>
 {% endblock %}

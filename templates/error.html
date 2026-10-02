@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+{% block title %}Error {{ codigo }} — Vértice Studio{% endblock %}
+
+{% block content %}
+<section class="error-pagina">
+  <span class="error-pagina__codigo">{{ codigo }}</span>
+  <h1>Ups.</h1>
+  <p>{{ mensaje }}</p>
+  <a href="{{ url_for('inicio') }}" class="btn btn--primary">Volver al inicio</a>
+</section>
+{% endblock %}

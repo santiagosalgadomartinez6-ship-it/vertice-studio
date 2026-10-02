@@ -7,6 +7,7 @@
   <p class="reservar__intro">Elige una disciplina, después la fecha disponible, y confirma tus datos.</p>
 
   <form method="post" action="{{ url_for('crear_reservacion') }}" class="form-reserva" novalidate>
+    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
     <label for="clase_id">Clase</label>
     <select id="clase_id" name="clase_id" required>
       <option value="" disabled {% if not clase_preseleccionada %}selected{% endif %}>Selecciona una clase</option>
@@ -18,9 +19,18 @@
     </select>
 
     <label for="fecha">Fecha disponible</label>
+    {% if fechas_preseleccionadas %}
+    <select id="fecha" name="fecha" required>
+      <option value="" disabled selected>Selecciona una fecha</option>
+      {% for f in fechas_preseleccionadas %}
+      <option value="{{ f.fecha }}" {% if f.lugares_disponibles <= 0 %}disabled{% endif %}>{{ f.etiqueta }}</option>
+      {% endfor %}
+    </select>
+    {% else %}
     <select id="fecha" name="fecha" required disabled>
       <option value="" selected>Primero elige una clase</option>
     </select>
+    {% endif %}
 
     <label for="nombre">Nombre completo</label>
     <input type="text" id="nombre" name="nombre" required placeholder="Tu nombre">

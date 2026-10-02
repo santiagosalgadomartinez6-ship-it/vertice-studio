@@ -4,14 +4,30 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>{% block title %}Vértice Studio{% endblock %}</title>
+<meta name="description" content="Vértice Studio — funcional, yoga, spinning, box y pilates reformer en clases pequeñas con cupo limitado. Reserva tu clase en línea.">
+<meta name="theme-color" content="#14141a">
+<link rel="canonical" href="{{ url_actual() }}">
+<meta property="og:type" content="website">
+<meta property="og:title" content="{{ self.title() }}">
+<meta property="og:description" content="Vértice Studio — funcional, yoga, spinning, box y pilates reformer en clases pequeñas con cupo limitado. Reserva tu clase en línea.">
+<meta property="og:url" content="{{ url_actual() }}">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="{{ self.title() }}">
+<meta name="twitter:description" content="Vértice Studio — funcional, yoga, spinning, box y pilates reformer en clases pequeñas con cupo limitado. Reserva tu clase en línea.">
+<link rel="icon" href="{{ url_for('static', filename='favicon.svg') }}" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
 </head>
 <body>
+<a href="#main-contenido" class="skip-link">Saltar al contenido</a>
 <header class="nav">
   <a href="{{ url_for('inicio') }}" class="nav__brand">VÉRTICE</a>
-  <nav class="nav__links">
+  <button type="button" class="nav__toggle" aria-expanded="false" aria-controls="nav-links" aria-label="Abrir menú">
+    <span></span><span></span><span></span>
+  </button>
+  <nav class="nav__links" id="nav-links">
     <a href="{{ url_for('inicio') }}#clases">Clases</a>
     <a href="{{ url_for('inicio') }}#instructores">Instructores</a>
     <a href="{{ url_for('reservar') }}" class="btn btn--nav">Reservar clase</a>
@@ -20,15 +36,18 @@
 
 {% with mensajes = get_flashed_messages(with_categories=true) %}
   {% if mensajes %}
-  <div class="flash-stack">
+  <div class="flash-stack" role="status" aria-live="polite">
     {% for categoria, mensaje in mensajes %}
-    <div class="flash flash--{{ categoria }}">{{ mensaje }}</div>
+    <div class="flash flash--{{ categoria }}">
+      <span>{{ mensaje }}</span>
+      <button type="button" class="flash__cerrar" aria-label="Cerrar mensaje">×</button>
+    </div>
     {% endfor %}
   </div>
   {% endif %}
 {% endwith %}
 
-<main>
+<main id="main-contenido">
 {% block content %}{% endblock %}
 </main>
 

@@ -6,6 +6,9 @@ services:
     buildCommand: pip install -r requirements.txt
     startCommand: gunicorn app:app --bind 0.0.0.0:$PORT
     envVars:
+      # Activa la cookie segura y HSTS (ver EN_PRODUCCION en app.py)
+      - key: FLASK_ENV
+        value: production
       - key: VERTICE_SECRET_KEY
         generateValue: true
       # Contraseña del panel: la genera Render y se consulta en Environment.

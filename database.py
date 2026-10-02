@@ -14,6 +14,21 @@ def get_db():
     return conn
 
 
+def crear_indices():
+    """Crea los índices de apoyo si no existen. Idempotente y segura de
+    re-ejecutar en cada arranque, incluso sobre una base de datos ya existente
+    que nunca pasó por el executescript de init_db()."""
+    conn = get_db()
+    conn.executescript(
+        """
+        CREATE INDEX IF NOT EXISTS idx_reservaciones_clase_fecha_estado
+            ON reservaciones(clase_id, fecha, estado);
+        """
+    )
+    conn.commit()
+    conn.close()
+
+
 def init_db():
     conn = get_db()
     conn.executescript(
@@ -42,7 +57,10 @@ def init_db():
         """
     )
     conn.commit()
+    conn.close()
+    crear_indices()
 
+    conn = get_db()
     if conn.execute("SELECT COUNT(*) FROM clases").fetchone()[0] == 0:
         clases_semilla = [
             ("Funcional HIIT", "Entrenamiento funcional de alta intensidad por estaciones.", "Coach Iván", 12, 0, "07:00", 45),
@@ -124,15 +142,29 @@ def obtener_reservacion(reservacion_id):
     return fila
 
 
-def obtener_reservaciones():
+def obtener_reservaciones(pagina=1, por_pagina=20):
     conn = get_db()
+    offset = (pagina - 1) * por_pagina
     filas = conn.execute(
         """SELECT r.*, c.nombre AS clase_nombre, c.hora, c.instructor
            FROM reservaciones r JOIN clases c ON c.id = r.clase_id
-           ORDER BY r.creado_en DESC"""
+           ORDER BY r.creado_en DESC
+           LIMIT ? OFFSET ?""",
+        (por_pagina, offset),
     ).fetchall()
     conn.close()
     return filas
+
+
+def contar_reservaciones():
+    conn = get_db()
+    fila = conn.execute(
+        "SELECT COUNT(*) AS total, SUM(estado = 'confirmada') AS confirmadas FROM reservaciones"
+    ).fetchone()
+    conn.close()
+    total = fila["total"]
+    confirmadas = fila["confirmadas"] or 0
+    return total, confirmadas
 
 
 def cancelar_reservacion(reservacion_id):
